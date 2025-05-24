@@ -359,11 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('mainContent');
     const audioFile = document.getElementById('mySound');
 
-    const playButton = document.getElementById('playBtn');
-    const pauseButton = document.getElementById('pauseBtn');
-    const stopButton = document.getElementById('stopBtn');
-    const volumeControl = document.getElementById('volumeControl');
-
+   
     // Show main content and play music on enter
     enterButton.addEventListener('click', () => {
         overlay.style.transition = 'opacity 0.5s ease-out';
@@ -380,22 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Manual Controls
-    playButton.addEventListener('click', () => {
-        audioFile.play();
-    });
-
-    pauseButton.addEventListener('click', () => {
-        audioFile.pause();
-    });
-
-    stopButton.addEventListener('click', () => {
-        audioFile.pause();
-        audioFile.currentTime = 0;
-    });
-
-    volumeControl.addEventListener('input', () => {
-        audioFile.volume = volumeControl.value;
-    });
+   
 });
 </script>
 
