@@ -369,14 +369,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
         mainContent.style.display = 'block';
 
-        // Attempt to auto-play after user interaction
-        audioFile.play().catch(error => {
-            console.warn("Autoplay blocked:", error);
-        });
     });
 
-    // Manual Controls
-   
+    // Envelope open/close logic
+    document.querySelectorAll('.envelope').forEach(envelope => {
+        envelope.addEventListener('click', function () {
+            // Close all envelopes first
+            document.querySelectorAll('.envelope.open').forEach(openEnv => {
+                if (openEnv !== envelope) openEnv.classList.remove('open');
+            });
+            // Toggle current envelope
+            envelope.classList.toggle('open');
+        });
+    });
 });
 </script>
 
