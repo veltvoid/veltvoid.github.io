@@ -4,83 +4,147 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Special Message For You, My Love</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300;400;500;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #2c2c3a; /* Dark desaturated indigo */
-            --text-color: #e0e0e6; /* Soft off-white */
-            --primary-accent: #ff8fab; /* Soft pink */
-            --secondary-accent: #ab87ff; /* Soft lavender */
-            --card-bg: #3a3a4a; /* Slightly lighter dark for cards */
-            --card-border: #505060;
-            --shadow-color: rgba(255, 143, 171, 0.3); /* Pink shadow */
+            --bg-gradient: linear-gradient(135deg, #ffeef8 0%, #f8e8ff 25%, #e8f4ff 50%, #fff0e8 75%, #ffe8f0 100%);
+            --text-color: #2d1b3d;
+            --primary-accent: #e91e63;
+            --secondary-accent: #9c27b0;
+            --soft-pink: #ffc1e3;
+            --lavender: #e1bee7;
+            --peach: #ffccbc;
+            --mint: #c8e6c9;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(233, 30, 99, 0.2);
+            --shadow-color: rgba(233, 30, 99, 0.3);
+            --love-pink: #ff4081;
+            --dreamy-purple: #ba68c8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Quicksand', sans-serif;
-            background-color: var(--bg-color);
+            background: var(--bg-gradient);
+            background-attachment: fixed;
             color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            text-align: center;
             overflow-x: hidden;
-            position: relative; /* For animated elements */
             min-height: 100vh;
+            position: relative;
         }
 
+        /* Dreamy background elements */
+        .bg-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        .bg-heart, .bg-flower, .bg-butterfly {
+            position: absolute;
+            font-size: 2em;
+            animation: dreamyFloat 20s infinite linear;
+        }
+
+        .bg-heart { color: var(--love-pink); }
+        .bg-flower { color: var(--dreamy-purple); }
+        .bg-butterfly { color: var(--secondary-accent); }
+
+        @keyframes dreamyFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10%, 90% {
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(50vh) translateX(50px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(-100px) translateX(-30px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Overlay styles */
         .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background: linear-gradient(135deg, rgba(233, 30, 99, 0.9), rgba(156, 39, 176, 0.9));
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1001;
-            flex-direction: column;
-            padding: 20px;
-            box-sizing: border-box;
+            backdrop-filter: blur(15px);
         }
 
         .overlay-content {
-            background-color: var(--card-bg);
-            padding: 30px 40px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px var(--shadow-color);
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(233, 30, 99, 0.4);
+            text-align: center;
+            border: 2px solid var(--card-border);
+            max-width: 90%;
+            animation: heartbeat 2s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .overlay-content p {
-            font-size: 1.2em;
-            margin-bottom: 20px;
+            font-size: 1.4em;
+            margin-bottom: 30px;
+            font-weight: 500;
+            color: var(--text-color);
         }
 
         .overlay-button {
-            padding: 12px 25px;
-            font-size: 1.1em;
-            font-family: 'Playfair Display', serif;
-            background-color: var(--primary-accent);
-            color: var(--bg-color);
+            padding: 18px 40px;
+            font-size: 1.3em;
+            font-family: 'Dancing Script', cursive;
+            background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
+            color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            font-weight: bold;
+            transition: all 0.4s ease;
+            font-weight: 600;
+            text-transform: capitalize;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
         }
 
         .overlay-button:hover {
-            background-color: var(--secondary-accent);
-            transform: scale(1.05);
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 0 15px 35px rgba(233, 30, 99, 0.6);
         }
 
+        /* Main container */
         .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
             opacity: 0;
-            animation: fadeInContent 1.5s ease-out forwards;
-            animation-delay: 0.2s; /* After overlay potentially closes */
+            animation: fadeInContent 2s ease-out forwards;
+            animation-delay: 0.3s;
             position: relative;
             z-index: 1;
         }
@@ -89,302 +153,648 @@
             to { opacity: 1; }
         }
 
-        .header h1 {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary-accent);
-            font-size: 2.5em; /* Responsive base */
-            margin-bottom: 10px;
-            font-weight: 700;
-            text-shadow: 0 0 10px var(--shadow-color);
+        /* Section styling */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+            position: relative;
         }
 
-        .header .subtitle {
-            font-size: 1.2em; /* Responsive base */
-            color: var(--text-color);
-            margin-bottom: 30px;
-            font-weight: 300;
+        .header-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 193, 227, 0.3), rgba(225, 190, 231, 0.3));
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(3em, 10vw, 5em);
+            margin-bottom: 25px;
+            font-weight: 700;
+            color: var(--primary-accent);
+            text-shadow: 2px 2px 4px rgba(233, 30, 99, 0.2);
+            animation: colorShift 4s infinite;
+        }
+
+        @keyframes colorShift {
+            0%, 100% { color: var(--primary-accent); }
+            50% { color: var(--secondary-accent); }
+        }
+
+        .subtitle {
+            font-size: clamp(1.3em, 5vw, 2em);
+            margin-bottom: 35px;
+            font-weight: 400;
+            color: var(--dreamy-purple);
+            font-style: italic;
         }
 
         .intro-text {
-            font-size: 1.1em;
-            line-height: 1.7;
-            margin-bottom: 40px;
+            font-size: clamp(1.1em, 4vw, 1.4em);
+            line-height: 1.8;
+            max-width: 650px;
+            text-align: center;
             color: var(--text-color);
-        }
-
-        .envelopes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .envelope {
-            background-color: var(--card-bg);
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(233, 30, 99, 0.1);
             border: 1px solid var(--card-border);
-            border-radius: 10px;
-            padding: 20px;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Message sections */
+        .message-section {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s ease;
+            margin: 0;
+            padding: 80px 20px;
+        }
+
+        .message-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .message-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--card-border);
+            border-radius: 25px;
+            padding: 45px;
+            margin: 25px auto;
+            max-width: 550px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(233, 30, 99, 0.15);
+            transform: scale(0.85);
+            transition: all 0.6s ease;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .envelope:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 10px 25px var(--shadow-color);
-        }
-
-        .envelope-icon {
-            font-size: 2.5em;
-            color: var(--primary-accent);
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .envelope-title {
-            font-size: 1.2em;
-            font-weight: 500;
-            color: var(--text-color);
-            margin-bottom: 10px;
-        }
-        
-        .envelope-prompt {
-            font-size: 0.9em;
-            color: var(--secondary-accent);
-        }
-
-        .message-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.7s ease-in-out, padding 0.7s ease-in-out;
-            font-size: 1em;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: rgba(0,0,0,0.2);
-            margin: 15px -20px -20px -20px; /* Extend to edges */
-            padding: 0px 20px;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            border-top: 1px dashed var(--card-border);
-        }
-
-        .envelope.open .message-content {
-            max-height: 300px; /* Adjust as needed for message length */
-            padding: 20px 20px;
-        }
-        
-        .envelope.open .envelope-icon {
-             animation: openPulse 0.6s ease-in-out;
-        }
-
-        @keyframes openPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); color: var(--secondary-accent); }
-            100% { transform: scale(1); }
-        }
-
-
-        .footer {
-            margin-top: 60px;
-            padding-top: 30px;
-            border-top: 1px solid var(--card-border);
-            font-size: 1em;
-            color: var(--primary-accent);
-        }
-        .footer p { margin: 5px 0; }
-
-        /* Animated background elements */
-        .animated-bg span {
-            position: fixed; /* Changed to fixed to stay on screen */
-            bottom: -50px; /* Start off-screen */
-            font-size: 1.5em; /* Base size */
-            color: var(--primary-accent);
+        .message-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(233, 30, 99, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
             opacity: 0;
-            animation: floatUp 10s infinite linear;
-            z-index: 0; /* Behind content */
-            pointer-events: none; /* So they don't interfere with clicks */
         }
 
-        .animated-bg span:nth-child(1) { left: 10%; animation-delay: 0s; font-size: 1.2em; color: var(--secondary-accent); }
-        .animated-bg span:nth-child(2) { left: 20%; animation-delay: 2s; opacity: 0.3; }
-        .animated-bg span:nth-child(3) { left: 30%; animation-delay: 4s; font-size: 1.8em; }
-        .animated-bg span:nth-child(4) { left: 40%; animation-delay: 1s; opacity: 0.4; color: var(--secondary-accent); }
-        .animated-bg span:nth-child(5) { left: 50%; animation-delay: 3s; }
-        .animated-bg span:nth-child(6) { left: 60%; animation-delay: 5s; font-size: 1em; opacity: 0.2; }
-        .animated-bg span:nth-child(7) { left: 70%; animation-delay: 0.5s; color: var(--secondary-accent); }
-        .animated-bg span:nth-child(8) { left: 80%; animation-delay: 2.5s; font-size: 1.6em; opacity: 0.35; }
-        .animated-bg span:nth-child(9) { left: 90%; animation-delay: 3.5s; }
-        .animated-bg span:nth-child(10) { left: 5%; animation-delay: 6s; font-size: 1.3em; opacity: 0.25; color: var(--secondary-accent); }
+        .message-card:hover::before {
+            animation: shimmer 1.5s ease-in-out;
+        }
 
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
+        }
 
-        @keyframes floatUp {
+        .message-section.visible .message-card {
+            transform: scale(1);
+        }
+
+        .message-icon {
+            font-size: 4.5em;
+            margin-bottom: 25px;
+            display: block;
+            animation: gentleBounce 3s infinite;
+        }
+
+        @keyframes gentleBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-8px); }
+            60% { transform: translateY(-4px); }
+        }
+
+        .message-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6em, 6vw, 2.4em);
+            margin-bottom: 25px;
+            color: var(--primary-accent);
+            font-weight: 600;
+        }
+
+        .message-text {
+            font-size: clamp(1.1em, 4vw, 1.3em);
+            line-height: 1.7;
+            color: var(--text-color);
+            font-weight: 400;
+        }
+
+        /* Interactive Gift Box */
+        .gift-box-container {
+            text-align: center;
+            margin: 80px 0;
+            position: relative;
+        }
+
+        .gift-box {
+            font-size: 6em;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: inline-block;
+            animation: giftPulse 2s infinite;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes giftPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .gift-box:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 20px var(--love-pink));
+        }
+
+        .gift-box.opening {
+            animation: giftOpen 1s ease-in-out;
+        }
+
+        @keyframes giftOpen {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.3) rotate(-10deg); }
+            50% { transform: scale(1.5) rotate(10deg); }
+            75% { transform: scale(1.2) rotate(-5deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .flowers-explosion {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .flower {
+            position: absolute;
+            font-size: 3em;
+            animation: flowerBurst 2s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes flowerBurst {
             0% {
-                bottom: -50px;
                 opacity: 0;
-                transform: translateX(0) rotate(0deg);
-            }
-            10%, 90% {
-                opacity: 0.7; /* Peak opacity for longer visibility */
+                transform: scale(0) rotate(0deg);
             }
             50% {
-                transform: translateX(20px) rotate(15deg);
+                opacity: 1;
+                transform: scale(1.2) rotate(180deg);
             }
             100% {
-                bottom: 100vh; /* Float to top */
                 opacity: 0;
-                transform: translateX(-20px) rotate(-15deg);
+                transform: scale(0.8) rotate(360deg);
             }
         }
-        
-        /* Floral Dividers */
+
+        .gift-message {
+            margin-top: 30px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2em;
+            color: var(--love-pink);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .gift-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Love messages */
+        .love-message {
+            text-align: center;
+            font-size: clamp(1.8em, 7vw, 3em);
+            font-family: 'Dancing Script', cursive;
+            color: var(--love-pink);
+            margin: 60px 0;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(255, 64, 129, 0.3);
+            animation: loveGlow 3s infinite alternate;
+        }
+
+        @keyframes loveGlow {
+            0% { 
+                text-shadow: 2px 2px 4px rgba(255, 64, 129, 0.3);
+                transform: scale(1);
+            }
+            100% { 
+                text-shadow: 0 0 20px rgba(255, 64, 129, 0.6);
+                transform: scale(1.05);
+            }
+        }
+
         .floral-divider {
-            font-size: 1.8em;
+            font-size: 3em;
+            text-align: center;
+            margin: 70px 0;
+            opacity: 0.8;
+            animation: floralSway 4s infinite ease-in-out;
+        }
+
+        @keyframes floralSway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        /* Decorative elements */
+        .love-decoration {
+            position: absolute;
+            font-size: 3.5em;
+            opacity: 0.4;
+            animation: decorPulse 4s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes decorPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.4; }
+            50% { transform: scale(1.3) rotate(15deg); opacity: 0.7; }
+        }
+
+        .footer-section {
+            background: linear-gradient(135deg, rgba(255, 193, 227, 0.4), rgba(225, 190, 231, 0.4));
+            backdrop-filter: blur(15px);
+            text-align: center;
+            padding: 100px 20px;
+            border-top: 2px solid var(--card-border);
+        }
+
+        .footer-content {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(233, 30, 99, 0.2);
+            border: 1px solid var(--card-border);
+        }
+
+        .footer-text {
+            font-size: clamp(1.2em, 4vw, 1.5em);
+            line-height: 1.9;
+            margin-bottom: 25px;
+            color: var(--text-color);
+            font-weight: 400;
+        }
+
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.6em, 6vw, 2.2em);
             color: var(--primary-accent);
-            margin: 30px 0;
-            opacity: 0.7;
+            font-weight: 700;
+            margin-top: 35px;
         }
 
-        /* Responsive adjustments */
+        /* Mobile optimizations */
         @media (max-width: 768px) {
-            .header h1 { font-size: 2em; }
-            .header .subtitle { font-size: 1.1em; }
-            .intro-text { font-size: 1em; }
-            .envelopes-grid {
-                grid-template-columns: 1fr; /* Stack envelopes */
-                gap: 20px;
+            .section {
+                min-height: auto;
+                padding: 80px 15px;
             }
-            .envelope { padding: 15px; }
-            .envelope-icon { font-size: 2em; }
-            .envelope-title { font-size: 1.1em; }
-            .message-content { font-size: 0.95em; }
-            .animated-bg span { font-size: 1em; } /* Smaller on mobile */
-        }
-        @media (max-width: 480px) {
-            .header h1 { font-size: 1.8em; }
-            .header .subtitle { font-size: 1em; }
-            .overlay-content { padding: 20px; }
-            .overlay-content p { font-size: 1em; }
-            .overlay-button { padding: 10px 20px; font-size: 1em; }
-            .container { padding: 20px 15px; }
+            
+            .message-card {
+                padding: 35px 25px;
+                margin: 20px 10px;
+            }
+            
+            .gift-box {
+                font-size: 5em;
+            }
+            
+            .overlay-content {
+                padding: 40px 30px;
+            }
         }
 
+        @media (max-width: 480px) {
+            .section {
+                padding: 60px 10px;
+            }
+            
+            .message-card {
+                padding: 30px 20px;
+            }
+            
+            .gift-box {
+                font-size: 4.5em;
+            }
+            
+            .flower {
+                font-size: 2.5em;
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--love-pink);
+            font-size: 2.5em;
+            animation: scrollBounce 2s infinite;
+            z-index: 10;
+            text-shadow: 2px 2px 4px rgba(255, 64, 129, 0.3);
+        }
+
+        @keyframes scrollBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+            40% { transform: translate(-50%, -12px); }
+            60% { transform: translate(-50%, -6px); }
+        }
     </style>
 </head>
 <body>
+    <!-- Dreamy background elements -->
+    <div class="bg-elements" id="bgElements"></div>
 
+    <!-- Overlay -->
     <div class="overlay" id="pageOverlay">
         <div class="overlay-content">
-            <p>A special surprise awaits you, my love... 💖</p>
-            <button class="overlay-button" id="enterButton">Click to Begin Our Moment</button>
+            <p>A magical surprise awaits you, my beautiful angel... ✨💖</p>
+            <button class="overlay-button" id="enterButton">Enter Our Dreamy World</button>
         </div>
     </div>
 
-    <div class="animated-bg">
-        <span>❤️</span><span>✨</span><span>🌸</span><span>💖</span><span>🌟</span>
-        <span>❤️</span><span>✨</span><span>🌸</span><span>💖</span><span>🌟</span>
-    </div>
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator" id="scrollIndicator">💕</div>
 
+    <!-- Main content -->
     <div class="container" id="mainContent" style="display: none;">
-        <header class="header">
-            <h1>My Dearest bebbu,</h1>
-            <p class="subtitle">You are my everything, my sunshine, my Love.</p>
-        </header>
+        <!-- Header section -->
+        <section class="section header-section">
+            <header class="header">
+                <h1>My Dearest bebbu,</h1>
+                <p class="subtitle">You are my everything, my sunshine, my Love.</p>
+                <p class="intro-text">
+                    I know your exams are on your mind, and I wanted to send a little wave of love and encouragement your way.
+                    Remember how incredibly smart, capable, and amazing you are. I believe in you more than words can say!
+                    Scroll down for some magical surprises! ✨
+                </p>
+            </header>
+            <div class="love-decoration" style="top: 15%; right: 10%;">🦋</div>
+            <div class="love-decoration" style="bottom: 15%; left: 10%;">🌸</div>
+        </section>
 
-        <p class="intro-text">
-            I know your exams are on your mind, and I wanted to send a little wave of love and encouragement your way.
-            Remember how incredibly smart, capable, and amazing you are. I believe in you more than words can say!
-            Open these little messages whenever you need a reminder of that.
-        </p>
-        
-        <div class="floral-divider">🌸✨💖✨🌸</div>
+        <!-- Love message 1 -->
+        <div class="love-message">I Love You So Much! 💕</div>
 
-        <div class="envelopes-grid">
-            <div class="envelope">
-                <span class="envelope-icon">💌</span>
-                <h3 class="envelope-title">A Little Boost</h3>
-                <p class="envelope-prompt">(Tap to open)</p>
-                <div class="message-content">
-                    <p>You've prepared so well for this. Trust your knowledge and your self! You're going to do amazing in exams. I'm cheering for you! ✨</p>
-                </div>
+        <!-- Message 1 -->
+        <section class="section message-section">
+            <div class="message-card">
+                <span class="message-icon">💌</span>
+                <h3 class="message-title">A Little Boost</h3>
+                <p class="message-text">
+                    You've prepared so well for this. Trust your knowledge and yourself! You're going to do amazing in exams. I'm cheering for you! ✨
+                </p>
             </div>
+            <div class="love-decoration" style="top: 25%; right: 15%;">🌺</div>
+        </section>
 
-            <div class="envelope">
-                <span class="envelope-icon">🎁</span>
-                <h3 class="envelope-title">For Exam </h3>
-                <p class="envelope-prompt">(Tap to open)</p>
-                <div class="message-content">
-                    <p>Take a deep breath. You are stronger than any worry. Remember all you've accomplished. You've totally got this! My Bebbu ilysm You Got this. 💖</p>
-                </div>
-            </div>
-
-            <div class="envelope">
-                <span class="envelope-icon">🌟</span>
-                <h3 class="envelope-title">Believe in Yourself</h3>
-                <p class="envelope-prompt">(Tap to open)</p>
-                <div class="message-content">
-                    <p>You are Perfect for me Just Believe in urself i believe in you too, my bby. I'm so proud of you! 🌸</p>
-                </div>
-            </div>
-            
-            <div class="envelope">
-                <span class="envelope-icon">💖</span>
-                <h3 class="envelope-title">Just a Reminder</h3>
-                <p class="envelope-prompt">(Tap to open)</p>
-                <div class="message-content">
-                    <p>No matter the Results its not in our hands right.We can work on what we have rn dont worry about results just do what you can now and ik you do all ur best and for that I love you smmmmmmm! ❤️</p>
-                </div>
-            </div>
+        <!-- Interactive Gift Box 1 -->
+        <div class="gift-box-container">
+            <div class="gift-box" onclick="openGiftBox(this)">Click 🎁</div>
+            <div class="flowers-explosion"></div>
+            <div class="gift-message">A bouquet of love just for you! 💐</div>
         </div>
-        
+
+        <!-- Love message 2 -->
+        <div class="love-message">You're My Everything! 💖</div>
+
+        <!-- Message 2 -->
+        <section class="section message-section">
+            <div class="message-card">
+                <span class="message-icon">🎁</span>
+                <h3 class="message-title">For Exam Day</h3>
+                <p class="message-text">
+                    Take a deep breath. You are stronger than any worry. Remember all you've accomplished. You've totally got this! My Bebbu ilysm You Got this. 💖
+                </p>
+            </div>
+            <div class="love-decoration" style="bottom: 30%; left: 20%;">💫</div>
+        </section>
+
+        <!-- Floral divider -->
         <div class="floral-divider">🌸✨💖✨🌸</div>
 
-        <footer class="footer">
-            <p>Through every challenge and every triumph, I'm right here by your side.</p>
-            <p>You are loved more than you can imagine.</p>
-            <p>With all my love, Ysh</p>
-        </footer>
+        <!-- Interactive Gift Box 2 -->
+        <div class="gift-box-container">
+            <div class="gift-box" onclick="openGiftBox(this)">Press 💝</div>
+            <div class="flowers-explosion"></div>
+            <div class="gift-message">More flowers to brighten your day! 🌷</div>
+        </div>
+
+        <!-- Love message 3 -->
+        <div class="love-message">My Beautiful Angel! 🌟</div>
+
+        <!-- Message 3 -->
+        <section class="section message-section">
+            <div class="message-card">
+                <span class="message-icon">🌟</span>
+                <h3 class="message-title">Believe in Yourself</h3>
+                <p class="message-text">
+                    You are Perfect for me Just Believe in yourself i believe in you too, my bby. I'm so proud of you! 🌸
+                </p>
+            </div>
+            <div class="love-decoration" style="top: 20%; left: 10%;">🌙</div>
+        </section>
+
+        <!-- Interactive Gift Box 3 -->
+        <div class="gift-box-container">
+            <div class="gift-box" onclick="openGiftBox(this)">Press🎀</div>
+            <div class="flowers-explosion"></div>
+            <div class="gift-message">A garden of wishes for you! 🌻</div>
+        </div>
+
+        <!-- Love message 4 -->
+        <div class="love-message">Forever Yours! 💕</div>
+
+        <!-- Message 4 -->
+        <section class="section message-section">
+            <div class="message-card">
+                <span class="message-icon">💖</span>
+                <h3 class="message-title">Just a Reminder</h3>
+                <p class="message-text">
+                    No matter the Results its not in our hands right. We can work on what we have rn dont worry about results just do what you can now and ik you do all ur best and for that I love you smmmmmmm! ❤️
+                </p>
+            </div>
+            <div class="love-decoration" style="bottom: 25%; right: 15%;">🦋</div>
+        </section>
+
+        <!-- Final floral divider -->
+        <div class="floral-divider">🌸✨💖✨🌸</div>
+
+        <!-- Footer section -->
+        <section class="section footer-section">
+            <div class="footer-content">
+                <p class="footer-text">Through every challenge and every triumph, I'm right here by your side.</p>
+                <p class="footer-text">You are loved more than you can imagine.</p>
+                <p class="signature">With all my love, Ysh 💕</p>
+            </div>
+            <div class="love-decoration" style="top: 25%; right: 25%;">🌺</div>
+            <div class="love-decoration" style="bottom: 25%; left: 25%;">✨</div>
+        </section>
     </div>
 
-    
-     <audio id="mySound" src="b.mp3" preload="auto"></audio>
+    <audio id="mySound" src="b.mp3" preload="auto"></audio>
 
-<!-- Music Control Buttons -->
+    <script>
+        // Create dreamy background elements
+        function createBgElements() {
+            const bgElements = document.getElementById('bgElements');
+            const hearts = ['💖', '💕', '💗', '💓'];
+            const flowers = ['🌸', '🌺', '🌷', '🌻', '🌹', '💐'];
+            const butterflies = ['🦋', '🧚‍♀️', '✨', '💫'];
+            
+            // Create floating elements
+            for (let i = 0; i < 15; i++) {
+                // Hearts
+                const heart = document.createElement('div');
+                heart.className = 'bg-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 20 + 's';
+                heart.style.animationDuration = (15 + Math.random() * 10) + 's';
+                bgElements.appendChild(heart);
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const overlay = document.getElementById('pageOverlay');
-    const enterButton = document.getElementById('enterButton');
-    const mainContent = document.getElementById('mainContent');
-    const audioFile = document.getElementById('mySound');
+                // Flowers
+                const flower = document.createElement('div');
+                flower.className = 'bg-flower';
+                flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+                flower.style.left = Math.random() * 100 + '%';
+                flower.style.animationDelay = Math.random() * 20 + 's';
+                flower.style.animationDuration = (15 + Math.random() * 10) + 's';
+                bgElements.appendChild(flower);
 
-   
-    // Show main content and play music on enter
-    enterButton.addEventListener('click', () => {
-        overlay.style.transition = 'opacity 0.5s ease-out';
-        overlay.style.opacity = '0';
-        setTimeout(() => {
-            overlay.style.display = 'none';
-        }, 500);
-        mainContent.style.display = 'block';
+                // Butterflies and sparkles
+                if (i < 8) {
+                    const butterfly = document.createElement('div');
+                    butterfly.className = 'bg-butterfly';
+                    butterfly.textContent = butterflies[Math.floor(Math.random() * butterflies.length)];
+                    butterfly.style.left = Math.random() * 100 + '%';
+                    butterfly.style.animationDelay = Math.random() * 20 + 's';
+                    butterfly.style.animationDuration = (15 + Math.random() * 10) + 's';
+                    bgElements.appendChild(butterfly);
+                }
+            }
+        }
 
-    });
+        // Gift box interaction
+        function openGiftBox(giftBox) {
+            if (giftBox.classList.contains('opening')) return;
+            
+            giftBox.classList.add('opening');
+            
+            // Create flower explosion
+            const explosionContainer = giftBox.parentElement.querySelector('.flowers-explosion');
+            const flowers = ['🌸', '🌺', '🌷', '🌻', '🌹', '💐', '🌼', '🏵️'];
+            
+            for (let i = 0; i < 12; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'flower';
+                flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+                
+                // Random positions around the gift box
+                const angle = (i / 12) * 2 * Math.PI;
+                const distance = 80 + Math.random() * 40;
+                const x = Math.cos(angle) * distance;
+                const y = Math.sin(angle) * distance;
+                
+                flower.style.left = x + 'px';
+                flower.style.top = y + 'px';
+                flower.style.animationDelay = Math.random() * 0.5 + 's';
+                
+                explosionContainer.appendChild(flower);
+                
+                // Remove flower after animation
+                setTimeout(() => {
+                    if (flower.parentElement) {
+                        flower.parentElement.removeChild(flower);
+                    }
+                }, 2500);
+            }
+            
+            // Show gift message
+            const giftMessage = giftBox.parentElement.querySelector('.gift-message');
+            setTimeout(() => {
+                giftMessage.classList.add('show');
+            }, 800);
+            
+            // Reset gift box after animation
+            setTimeout(() => {
+                giftBox.classList.remove('opening');
+            }, 1000);
+        }
 
-    // Envelope open/close logic
-    document.querySelectorAll('.envelope').forEach(envelope => {
-        envelope.addEventListener('click', function () {
-            // Close all envelopes first
-            document.querySelectorAll('.envelope.open').forEach(openEnv => {
-                if (openEnv !== envelope) openEnv.classList.remove('open');
+        // Scroll-triggered animations
+        function handleScroll() {
+            const sections = document.querySelectorAll('.message-section');
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight * 0.8;
+                
+                if (isVisible && !section.classList.contains('visible')) {
+                    section.classList.add('visible');
+                }
             });
-            // Toggle current envelope
-            envelope.classList.toggle('open');
+
+            // Hide scroll indicator after scrolling
+            if (window.scrollY > 150) {
+                scrollIndicator.style.opacity = '0';
+                scrollIndicator.style.transform = 'translateX(-50%) scale(0.5)';
+            } else {
+                scrollIndicator.style.opacity = '1';
+                scrollIndicator.style.transform = 'translateX(-50%) scale(1)';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const overlay = document.getElementById('pageOverlay');
+            const enterButton = document.getElementById('enterButton');
+            const mainContent = document.getElementById('mainContent');
+            const audioFile = document.getElementById('mySound');
+
+            // Create background elements
+            createBgElements();
+
+            // Show main content and play music on enter
+            enterButton.addEventListener('click', () => {
+                overlay.style.transition = 'opacity 0.8s ease-out';
+                overlay.style.opacity = '0';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 800);
+                mainContent.style.display = 'block';
+
+                // Attempt to play audio
+                audioFile.currentTime = 0;
+                audioFile.play().catch((err) => {
+                    console.log('Autoplay was prevented:', err);
+                });
+
+                // Start scroll listener
+                window.addEventListener('scroll', handleScroll);
+                handleScroll(); // Check initial state
+            });
+
+            // Smooth scrolling
+            document.documentElement.style.scrollBehavior = 'smooth';
         });
-    });
-});
-</script>
-
-
+    </script>
 </body>
 </html>
