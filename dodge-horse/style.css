@@ -1,0 +1,294 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    background: #1a1a2e;
+    overflow: hidden;
+    touch-action: none;
+    image-rendering: pixelated;
+}
+
+#game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    z-index: 10;
+}
+
+.hidden {
+    display: none !important;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 4px 4px 0px rgba(255, 0, 0, 0.8);
+    color: #FFD700;
+    letter-spacing: 2px;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.instruction {
+    font-size: 0.9rem;
+    margin: 20px 0;
+    color: #ff6b6b;
+}
+
+.btn-large {
+    padding: 15px 40px;
+    margin: 10px;
+    font-size: 1rem;
+    background: #ff6b6b;
+    color: white;
+    border: 4px solid #fff;
+    border-radius: 0;
+    cursor: pointer;
+    transition: transform 0.1s;
+    min-width: 200px;
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+.btn-large:hover {
+    background: #ff5252;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.5);
+}
+
+.btn-large:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+#game-screen {
+    background: transparent;
+}
+
+#game-canvas {
+    display: block;
+    background: #0f0f1e;
+    max-width: 100%;
+    max-height: 100%;
+    image-rendering: pixelated;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+}
+
+#horse-sprite {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    pointer-events: none;
+    z-index: 5;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+}
+
+#hud {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    z-index: 15;
+}
+
+#score-display {
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 4px 4px 0px rgba(255, 0, 0, 1);
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    color: #FFD700;
+}
+
+#hud-high-score {
+    font-size: 0.8rem;
+    margin-top: 10px;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+}
+
+#health-display {
+    font-size: 1.5rem;
+    margin-top: 10px;
+}
+
+.icon-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid white;
+    color: white;
+    font-size: 1.5rem;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.icon-btn:active {
+    transform: scale(0.9);
+}
+
+#mobile-controls {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15;
+}
+
+#joystick-area {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+#joystick-base {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+#joystick-stick {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 107, 107, 0.8);
+    border: 3px solid white;
+    left: 45px;
+    top: 45px;
+    transition: all 0.1s;
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+}
+
+.menu-box {
+    background: rgba(50, 50, 50, 0.95);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    max-width: 90vw;
+}
+
+.option-row {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 0.8rem;
+}
+
+#volume-slider {
+    width: 200px;
+}
+
+.screen p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translate(0, 0); }
+    10%, 30%, 50%, 70%, 90% { transform: translate(-5px, 0); }
+    20%, 40%, 60%, 80% { transform: translate(5px, 0); }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .btn-large {
+        min-width: 150px;
+        padding: 12px 30px;
+        font-size: 0.8rem;
+    }
+    
+    #score-display {
+        font-size: 2rem;
+    }
+    
+    #joystick-area {
+        width: 120px;
+        height: 120px;
+    }
+    
+    #joystick-base {
+        width: 120px;
+        height: 120px;
+    }
+    
+    #joystick-stick {
+        width: 50px;
+        height: 50px;
+        left: 35px;
+        top: 35px;
+    }
+}
+
+@media (min-width: 769px) {
+    #mobile-controls {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.3rem;
+    }
+    
+    .btn-large {
+        font-size: 0.7rem;
+        padding: 10px 20px;
+    }
+    
+    #score-display {
+        font-size: 1.5rem;
+    }
+    
+    #health-display {
+        font-size: 1.2rem;
+    }
+}

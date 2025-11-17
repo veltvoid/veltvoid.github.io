@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Test - Horse Runner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .asset-check {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .found { background: #4CAF50; color: white; }
+        .missing { background: #f44336; color: white; }
+        button {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0b7dda; }
+        h1 { color: #333; }
+        .info { background: #fff3cd; padding: 15px; border-radius: 4px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h1>🐴 Horse Runner - Asset Checker</h1>
+    
+    <div class="info">
+        <strong>Note:</strong> This page checks if all required assets are present. The game will work without them, but you won't see the horse sprite or hear sounds.
+    </div>
+
+    <div class="asset-check">
+        <h3>Image Assets</h3>
+        <div id="horse-check">Checking horse-laugh.gif...</div>
+    </div>
+
+    <div class="asset-check">
+        <h3>Audio Assets</h3>
+        <div id="audio1-check">Checking thik_chhe.mp3...</div>
+        <div id="audio2-check">Checking vishnuuuuuuu.mp3...</div>
+        <div id="audio3-check">Checking aeeeeee.mp3...</div>
+        <div id="audio4-check">Checking bapaooooo.mp3...</div>
+    </div>
+
+    <div class="asset-check">
+        <h3>Actions</h3>
+        <button onclick="window.location.href='index.html'">Launch Game</button>
+        <button onclick="location.reload()">Recheck Assets</button>
+    </div>
+
+    <div class="asset-check">
+        <h3>Quick Asset Sources</h3>
+        <p><strong>Horse GIF:</strong></p>
+        <ul>
+            <li><a href="https://giphy.com/search/pixel-horse" target="_blank">Giphy - Pixel Horse</a></li>
+            <li><a href="https://tenor.com/search/horse-gifs" target="_blank">Tenor - Horse GIFs</a></li>
+        </ul>
+        <p><strong>Sound Effects:</strong></p>
+        <ul>
+            <li><a href="https://freesound.org/search/?q=jump" target="_blank">Freesound - Jump Sounds</a></li>
+            <li><a href="https://mixkit.co/free-sound-effects/game/" target="_blank">Mixkit - Game Sounds</a></li>
+        </ul>
+    </div>
+
+    <script>
+        function checkAsset(url, elementId, type) {
+            const element = document.getElementById(elementId);
+            
+            if (type === 'image') {
+                const img = new Image();
+                img.onload = () => {
+                    element.innerHTML = `${url} <span class="status found">✓ FOUND</span>`;
+                };
+                img.onerror = () => {
+                    element.innerHTML = `${url} <span class="status missing">✗ MISSING</span>`;
+                };
+                img.src = url;
+            } else if (type === 'audio') {
+                const audio = new Audio();
+                audio.oncanplaythrough = () => {
+                    element.innerHTML = `${url} <span class="status found">✓ FOUND</span>`;
+                };
+                audio.onerror = () => {
+                    element.innerHTML = `${url} <span class="status missing">✗ MISSING</span>`;
+                };
+                audio.src = url;
+            }
+        }
+
+        // Check all assets
+        checkAsset('horse-laugh.gif', 'horse-check', 'image');
+        checkAsset('thik_chhe.mp3', 'audio1-check', 'audio');
+        checkAsset('vishnuuuuuuu.mp3', 'audio2-check', 'audio');
+        checkAsset('aeeeeee.mp3', 'audio3-check', 'audio');
+        checkAsset('bapaooooo.mp3', 'audio4-check', 'audio');
+    </script>
+</body>
+</html>

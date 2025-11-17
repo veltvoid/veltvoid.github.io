@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Flappy Horse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Title Screen -->
+        <div id="title-screen" class="screen">
+            <h1>🐴 FLAPPY HORSE 🐴</h1>
+            <p id="high-score-display">High Score: 0</p>
+            <p class="instruction">Tap or Press Space to Flap!</p>
+            <button id="play-btn" class="btn-large">▶ PLAY</button>
+            <button id="options-btn" class="btn-large">⚙ OPTIONS</button>
+        </div>
+
+        <!-- Options Screen -->
+        <div id="options-screen" class="screen hidden">
+            <h2>Options</h2>
+            <div class="option-row">
+                <label for="volume-slider">Volume</label>
+                <input type="range" id="volume-slider" min="0" max="100" value="70">
+                <span id="volume-value">70%</span>
+            </div>
+            <div class="option-row">
+                <label>
+                    <input type="checkbox" id="reduce-motion">
+                    Reduce Motion
+                </label>
+            </div>
+            <button id="back-btn" class="btn-large">Back</button>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen hidden">
+            <div id="hud">
+                <div id="score-display">0</div>
+                <div id="hud-high-score">HIGH: 0</div>
+                <button id="mute-btn" class="icon-btn">🔊</button>
+            </div>
+            <canvas id="game-canvas"></canvas>
+            <img id="horse-sprite" src="../mario-horse/horse-laugh.gif" alt="Horse" onerror="this.style.display='none'">
+            
+            <!-- Tap instruction -->
+            <div id="tap-instruction">TAP TO FLAP</div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameover-screen" class="overlay hidden">
+            <div class="menu-box">
+                <h2>Game Over!</h2>
+                <p id="final-score">Score: 0</p>
+                <p id="new-high-score" class="hidden">🏆 New High Score! 🏆</p>
+                <button id="restart-game-btn" class="btn-large">Restart</button>
+                <button id="share-btn" class="btn-large">Share Score</button>
+                <button id="menu-btn" class="btn-large">Main Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
