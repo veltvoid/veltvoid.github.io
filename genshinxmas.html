@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genshin Impact Christmas Messages</title>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .nations-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nation-section {
+            position: relative;
+            width: 100%;
+            height: calc(100vh / 7);
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: brightness(0.4) saturate(0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .nation-section:hover {
+            filter: brightness(1) saturate(1);
+            transform: scale(1.02);
+            z-index: 10;
+        }
+
+        .nation-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .element-symbol {
+            width: 64px;
+            height: 64px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: transparent;
+            opacity: 0.9;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+            filter: brightness(1.1) contrast(1.2);
+            border: none;
+            outline: none;
+        }
+
+        .particles-container {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        /* Element-specific particle glows */
+        .pyro .particle {
+            background: #FCD4A2;
+            box-shadow: 0 0 8px #FCD4A2, 0 0 20px #F78A3A, 0 0 35px rgba(247, 138, 58, 0.4);
+        }
+
+        .geo .particle {
+            background: #FEF191;
+            box-shadow: 0 0 8px #FEF191, 0 0 20px #FFCF3A, 0 0 35px rgba(255, 207, 58, 0.4);
+        }
+
+        .hydro .particle {
+            background: #88E7E9;
+            box-shadow: 0 0 8px #88E7E9, 0 0 20px #4CE7FF, 0 0 35px rgba(76, 231, 255, 0.4);
+        }
+
+        .electro .particle {
+            background: #F2C1FC;
+            box-shadow: 0 0 8px #F2C1FC, 0 0 20px #C43BFF, 0 0 35px rgba(196, 59, 255, 0.4);
+        }
+
+        .cryo .particle {
+            background: #C5F2F2;
+            box-shadow: 0 0 8px #C5F2F2, 0 0 20px #8FFAFF, 0 0 35px rgba(143, 250, 255, 0.4);
+        }
+
+        .anemo .particle {
+            background: #BCFDFA;
+            box-shadow: 0 0 8px #BCFDFA, 0 0 20px #5CFFE8, 0 0 35px rgba(92, 255, 232, 0.4);
+        }
+
+        .dendro .particle {
+            background: #DEF7A1;
+            box-shadow: 0 0 8px #DEF7A1, 0 0 20px #C4FF55, 0 0 35px rgba(196, 255, 85, 0.4);
+        }
+
+        .nation-section:hover .element-symbol {
+            opacity: 1;
+            transform: scale(1.15);
+        }
+
+        .nation-section:hover .element-symbol {
+            filter: brightness(1.3) contrast(1.2);
+        }
+
+        /* Element-specific clean symbols */
+        .pyro .element-symbol {
+            background-image: url('pyro.png');
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .geo .element-symbol {
+            background-image: url('geo.png');
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .hydro .element-symbol {
+            background-image: url('hydro.png');
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .electro .element-symbol {
+            background-image: url('electro.png');
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .cryo .element-symbol {
+            background-image: url('cryo.png');
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .anemo .element-symbol {
+            background-image: url('anemo.png');
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .dendro .element-symbol {
+            background-image: url('dendro.png');
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        /* Subtle hover effects */
+        .nation-section {
+            transform-origin: center;
+        }
+
+        .element-symbol {
+            transform-origin: center;
+        }
+
+        .expanded-image {
+            transform-origin: center;
+        }
+
+
+
+        .fullscreen-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+        }
+
+        .modal-container {
+            position: relative;
+            width: 90%;
+            height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .expanded-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 25px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+        }
+
+        .message-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            border-radius: 0 0 25px 25px;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            color: white;
+            backdrop-filter: blur(20px);
+        }
+
+        .archon-name {
+            font-size: 2.2rem;
+            margin-bottom: 1.2rem;
+            color: #ffd700;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+            font-weight: bold;
+        }
+
+        .christmas-message {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .close-hint {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+        }
+
+        /* Nation-specific backgrounds */
+        .anemo { background-image: url('anemo_nation.jpg'); }
+        .geo { background-image: url('geo_nation (2).jpg'); }
+        .electro { background-image: url('electro_nation.jpg'); }
+        .dendro { background-image: url('dendro_nation.jpg'); }
+        .pyro { background-image: url('pyro_nation.png'); }
+        .hydro { background-image: url('hydro_nation.jpg'); }
+        .cryo { background-image: url('cryo_nation.png'); }
+
+        /* CD Player */
+        .cd-player {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            z-index: 2000;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .cd-player:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .cd-disc {
+            width: 100%;
+            height: 100%;
+            background-image: url('CD.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cd-disc.spinning {
+            animation: spin 8s linear infinite;
+        }
+
+        .cd-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="nations-container">
+        <div class="nation-section anemo" data-nation="anemo">
+            <div class="nation-overlay">
+                <div class="particles-container"></div>
+                <div class="element-symbol anemo-symbol"></div>
+            </div>
+        </div>
+        
+        <div class="nation-section geo" data-nation="geo">
+            <div class="nation-overlay">
+                <div class="particles-container"></div>
+                <div class="element-symbol geo-symbol"></div>
+            </div>
+        </div>
+        
+        <div class="nation-section electro" data-nation="electro">
+            <div class="nation-overlay">
+                <div class="particles-container"></div>
+                <div class="element-symbol electro-symbol"></div>
+            </div>
+        </div>
+        
+        <div class="nation-section dendro" data-nation="dendro">
+            <div class="nation-overlay">
+                <div class="particles-container"></div>
+                <div class="element-symbol dendro-symbol"></div>
+            </div>
+        </div>
+        
+        <div class="nation-section pyro" data-nation="pyro">
+            <div class="nation-overlay">
+                <div class="particles-container"></div>
+                <div class="element-symbol pyro-symbol"></div>
+            </div>
+        </div>
+        
+        <div class="nation-section hydro" data-nation="hydro">
+            <div class="nation-overlay">
+                <div class="particles-container"></div>
+                <div class="element-symbol hydro-symbol"></div>
+            </div>
+        </div>
+        
+        <div class="nation-section cryo" data-nation="cryo">
+            <div class="nation-overlay">
+                <div class="particles-container"></div>
+                <div class="element-symbol cryo-symbol"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="backgroundMusic" loop preload="auto">
+        <source src="nod-krai.webm" type="audio/webm">
+        <source src="nod-krai.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- CD Player -->
+    <div class="cd-player" id="cdPlayer" title="Click to stop music">
+        <div class="cd-disc" id="cdDisc">
+            <div class="cd-center"></div>
+        </div>
+    </div>
+
+    <div class="fullscreen-modal" id="fullscreenModal">
+        <div class="modal-container">
+            <img class="expanded-image" id="expandedImage" src="" alt="">
+            <div class="message-overlay" id="messageOverlay" style="opacity: 0;">
+                <h2 class="archon-name" id="archonName"></h2>
+                <p class="christmas-message" id="christmasMessage"></p>
+                <p class="close-hint">Click anywhere to close</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const messages = {
+            anemo: {
+                name: "Barbatos",
+                text: "Dear Traveler, as Christmas arrives with its gentle embrace, I wish for you the freedom to soar beyond any sorrow that weighs upon your heart. May the winds of this season carry away your worries and fill your soul with the music of hope. Remember, true freedom isn't just about breaking chains - it's about choosing love, choosing joy, and choosing to believe that tomorrow holds endless possibilities. You are never alone in your journey, for the wind connects all hearts across time and space."
+            },
+            geo: {
+                name: "Zhongli",
+                text: "Traveler, in this season of reflection and renewal, I offer you the wisdom of ages: Christmas is not merely a celebration, but a covenant of the heart. Like the ancient stones that weather countless storms yet stand eternal, may your spirit find unshakeable peace in the knowledge that you are deeply valued. The contracts we make with love - with family, friends, and ourselves - are the most precious treasures. May this Christmas strengthen those bonds and remind you that some things, like the love we share, truly are eternal."
+            },
+            electro: {
+                name: "Raiden Shogun",
+                text: "Traveler, I have learned that true eternity is not found in unchanging stone, but in the moments of connection that transcend time. This Christmas, may you discover that the greatest strength lies not in solitude, but in allowing others to share your burdens and joys. The storms of life may rage, but like lightning that illuminates the darkness, may your presence bring light to those around you. You have taught me that eternity is most beautiful when it includes the warmth of human hearts."
+            },
+            dendro: {
+                name: "Nahida",
+                text: "Sweet Traveler, Christmas reminds us that wisdom grows not from knowledge alone, but from understanding the profound beauty of compassion. Like a seed that finds light even in the deepest soil, may your heart bloom with hope this season. Every act of kindness you've shown has created ripples of joy across countless lives. You are a gardener of dreams, nurturing hope wherever you go. May this Christmas fill you with the wonder of knowing how deeply you are cherished, and how your gentle spirit makes the world more beautiful."
+            },
+            pyro: {
+                name: "Mavuika",
+                text: "Brave Traveler! Christmas ignites the most powerful flame of all - the fire of human connection and unconditional love. Your courage has inspired countless souls, and your determination has lit the way for others to find their own strength. This season, may that inner fire burn brighter than ever, not with the heat of battle, but with the warmth of belonging. You are a beacon of hope in this world, and your passionate heart has the power to kindle joy in even the coldest of winters. Never forget - you are both the flame and the light that guides others home."
+            },
+            hydro: {
+                name: "Furina",
+                text: "Dearest Traveler, behind every performance lies a truth, and the truth is this: you have brought genuine joy to a world that desperately needed it. This Christmas, may you feel the standing ovation of every life you've touched, every smile you've inspired, every heart you've healed. Like water that shapes even the hardest stone through gentle persistence, your kindness has transformed this world in ways you may never fully know. You deserve all the love and happiness this season can bring, for you have given so much of yourself to others."
+            },
+            cryo: {
+                name: "Columbina",
+                text: "Gentle Traveler, in the quiet beauty of this Christmas night, I want you to know that you have been the answer to so many unspoken prayers. Like moonlight that finds its way through the darkest maze, your presence has guided lost souls back to hope. You have shown that even in the deepest winter, warmth can be found in the connections we forge and the love we dare to give. This Christmas, may you feel the embrace of all those whose lives you've touched, and may you finally understand that you are not just cherished - you are essential to the light of this world."
+            }
+        };
+
+        // Add click event listeners to nation sections
+        document.querySelectorAll('.nation-section').forEach(section => {
+            section.addEventListener('click', function() {
+                const nation = this.dataset.nation;
+                openFullscreenModal(nation);
+            });
+        });
+
+        function openFullscreenModal(nation) {
+            const modal = document.getElementById('fullscreenModal');
+            const expandedImage = document.getElementById('expandedImage');
+            const messageOverlay = document.getElementById('messageOverlay');
+            const message = messages[nation];
+            
+            // Set the nation background image
+            const nationImages = {
+                anemo: 'anemo_nation.jpg',
+                geo: 'geo_nation (2).jpg',
+                electro: 'electro_nation.jpg',
+                dendro: 'dendro_nation.jpg',
+                pyro: 'pyro_nation.png',
+                hydro: 'hydro_nation.jpg',
+                cryo: 'cryo_nation.png'
+            };
+            
+            expandedImage.src = nationImages[nation];
+            document.getElementById('archonName').textContent = message.name;
+            document.getElementById('christmasMessage').textContent = message.text;
+            
+            modal.style.display = 'flex';
+            
+            // Smooth image fade in
+            anime({
+                targets: '#expandedImage',
+                opacity: [0, 1],
+                duration: 600,
+                easing: 'easeOutCubic'
+            });
+            
+            // Smooth message overlay
+            setTimeout(() => {
+                anime({
+                    targets: '#messageOverlay',
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    duration: 500,
+                    easing: 'easeOutCubic'
+                });
+            }, 400);
+        }
+
+        function closeFullscreenModal() {
+            const modal = document.getElementById('fullscreenModal');
+            const messageOverlay = document.getElementById('messageOverlay');
+            
+            // Smooth exit animations
+            anime({
+                targets: '#messageOverlay',
+                opacity: [1, 0],
+                translateY: [0, 10],
+                duration: 300,
+                easing: 'easeInCubic'
+            });
+            
+            anime({
+                targets: '#expandedImage',
+                opacity: [1, 0],
+                duration: 400,
+                delay: 100,
+                easing: 'easeInCubic',
+                complete: function() {
+                    modal.style.display = 'none';
+                    messageOverlay.style.opacity = '0';
+                    messageOverlay.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        // Close modal when clicking anywhere
+        document.getElementById('fullscreenModal').addEventListener('click', function() {
+            closeFullscreenModal();
+        });
+
+
+
+        // Background music functionality
+        let backgroundMusic = null;
+        let isPlaying = false;
+        let cdPlayer = null;
+        let cdDisc = null;
+        let targetVolume = 0.3;
+
+        function initializeAudio() {
+            backgroundMusic = document.getElementById('backgroundMusic');
+            cdPlayer = document.getElementById('cdPlayer');
+            cdDisc = document.getElementById('cdDisc');
+            
+            // Set initial volume to 0
+            backgroundMusic.volume = 0;
+            
+            // Add click event to stop music
+            cdPlayer.addEventListener('click', stopMusic);
+            
+            // Start music immediately when page loads
+            startBackgroundMusic();
+        }
+
+        function startBackgroundMusic() {
+            if (backgroundMusic && !isPlaying) {
+                backgroundMusic.play().then(() => {
+                    isPlaying = true;
+                    cdDisc.classList.add('spinning');
+                    cdPlayer.title = 'Click to stop music';
+                    
+                    // Gradually increase volume over 6 seconds
+                    anime({
+                        targets: backgroundMusic,
+                        volume: [0, targetVolume],
+                        duration: 6000,
+                        easing: 'easeOutCubic'
+                    });
+                }).catch(error => {
+                    console.log('Audio autoplay prevented:', error);
+                    // If autoplay fails, wait for user interaction
+                    document.addEventListener('click', startMusicOnFirstInteraction, { once: true });
+                });
+            }
+        }
+
+        function startMusicOnFirstInteraction() {
+            if (!isPlaying) {
+                startBackgroundMusic();
+            }
+        }
+
+        function stopMusic() {
+            if (!backgroundMusic || !isPlaying) return;
+            
+            // Fade out then stop
+            anime({
+                targets: backgroundMusic,
+                volume: [backgroundMusic.volume, 0],
+                duration: 1200,
+                easing: 'easeOutCubic',
+                complete: () => {
+                    backgroundMusic.pause();
+                    backgroundMusic.currentTime = 0;
+                    isPlaying = false;
+                    cdDisc.classList.remove('spinning');
+                    cdPlayer.title = 'Music stopped';
+                }
+            });
+        }
+
+        // Create particles for each element
+        function createParticles() {
+            document.querySelectorAll('.particles-container').forEach(container => {
+                const section = container.closest('.nation-section');
+                const element = section.dataset.nation;
+                
+                for (let i = 0; i < 8; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    // Better spread across larger container
+                    particle.style.left = Math.random() * 300 + 'px';
+                    particle.style.top = Math.random() * 300 + 'px';
+                    container.appendChild(particle);
+                    
+                    // Animate particles based on element type
+                    animateParticle(particle, element, i);
+                }
+            });
+        }
+
+        function animateParticle(particle, element, index) {
+            const delay = index * 500; // Longer delays for smoother spread
+            
+            switch(element) {
+                case 'pyro':
+                    // Slow flicker effect
+                    anime({
+                        targets: particle,
+                        scale: [0.7, 1.1, 0.9, 1],
+                        opacity: [0.3, 0.7, 0.5, 0.6],
+                        translateY: [-10, 10],
+                        translateX: [-6, 6],
+                        duration: 2000,
+                        delay: delay,
+                        easing: 'easeInOutSine',
+                        loop: true
+                    });
+                    break;
+                case 'geo':
+                    // Gentle crystal pulsing
+                    anime({
+                        targets: particle,
+                        scale: [0.8, 1.2, 0.8],
+                        opacity: [0.4, 0.7, 0.4],
+                        translateY: [-4, 4],
+                        duration: 3000,
+                        delay: delay,
+                        easing: 'easeInOutCubic',
+                        loop: true
+                    });
+                    break;
+                case 'hydro':
+                    // Smooth wave movement
+                    anime({
+                        targets: particle,
+                        translateY: [-20, 20],
+                        translateX: [-4, 4],
+                        scale: [0.8, 1, 0.8],
+                        opacity: [0.3, 0.6, 0.3],
+                        duration: 3500,
+                        delay: delay,
+                        easing: 'easeInOutSine',
+                        loop: true
+                    });
+                    break;
+                case 'electro':
+                    // Slower electric pulses
+                    anime({
+                        targets: particle,
+                        scale: [0.7, 1, 0.7],
+                        rotate: [-5, 5],
+                        opacity: [0.4, 0.8, 0.4],
+                        translateX: [-8, 8],
+                        translateY: [-8, 8],
+                        duration: 1200,
+                        delay: delay,
+                        easing: 'easeInOutQuad',
+                        loop: true
+                    });
+                    break;
+                case 'cryo':
+                    // Very slow frost breathing
+                    anime({
+                        targets: particle,
+                        scale: [0.9, 1.1, 0.9],
+                        opacity: [0.3, 0.6, 0.3],
+                        translateY: [-6, 6],
+                        duration: 4500,
+                        delay: delay,
+                        easing: 'easeInOutSine',
+                        loop: true
+                    });
+                    break;
+                case 'dendro':
+                    // Organic growth pulsing
+                    anime({
+                        targets: particle,
+                        scale: [0.7, 1.1, 0.9, 0.7],
+                        opacity: [0.3, 0.7, 0.5, 0.3],
+                        translateY: [-8, 8],
+                        translateX: [-3, 3],
+                        duration: 4000,
+                        delay: delay,
+                        easing: 'easeInOutCubic',
+                        loop: true
+                    });
+                    break;
+                case 'anemo':
+                    // Gentle circular sway
+                    anime({
+                        targets: particle,
+                        rotate: [0, 360],
+                        translateX: [-15, 15],
+                        translateY: [-15, 15],
+                        scale: [0.8, 1, 0.8],
+                        opacity: [0.2, 0.5, 0.2],
+                        duration: 6000,
+                        delay: delay,
+                        easing: 'easeInOutSine',
+                        loop: true
+                    });
+                    break;
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize audio
+            initializeAudio();
+            
+            // Simple fade in for page sections
+            anime({
+                targets: '.nation-section',
+                opacity: [0, 1],
+                delay: anime.stagger(50),
+                duration: 600,
+                easing: 'easeOutCubic',
+                complete: function() {
+                    // Create particles after page loads
+                    createParticles();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
